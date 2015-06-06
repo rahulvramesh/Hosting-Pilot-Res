@@ -75,15 +75,20 @@ sed -i 's/192.168.0.10/$ip/g' db.$fqdn
 mkdir -p /etc/bind/zones/master
 cp db.$fqdn /etc/bind/zones/master/db.$fqdn
 
-# TO-DO Address To Name Mapping 
-cat <<EOF > /etc/bind/$fqdn.named.z
-zone "$fqdn" {
-       type master;
-       file "/etc/bind/zones/master/db.$fqdn";
-};
-EOF 
 
-echo "Include $fqdn.named.z" >> /etc/bind/named.conf.local
+
+# TO-DO Address To Name Mapping 
+
+#conf
+wget https://github.com/rahulvramesh/Speech-Pilot-Res/blob/master/named.conf.local
+rm /etc/bind/named.conf.local
+sed -i 's/linuxconfig.org/$fqdn/g' named.conf.local
+cp named.conf.local /etc/bind/named.conf.local
+
+wget https://github.com/rahulvramesh/Speech-Pilot-Res/blob/master/named.conf.options
+rm /etc/bind/named.conf.options
+cp named.conf.options /etc/bind/named.conf.options
+
 
 # Enable Services 
 
