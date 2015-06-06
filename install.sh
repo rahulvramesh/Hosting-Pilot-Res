@@ -29,4 +29,36 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get install apache2 mysql-server php5-mysql php5 libapache2-mod-php5 php5-mcrypt php5-common php5-curl bind9 bind9utils bind9-doc phpMyAdmin zip webalizer build-essential bash-completion
 
 
+wget https://raw.githubusercontent.com/rahulvramesh/Speech-Pilot-Res/master/dir.conf
+cp /etc/apache2/mods-enabled/dir.conf /etc/apache2/mods-enabled/dir.conf_back
+cp dir.conf /etc/apache2/mods-enabled/dir.conf
+
+
+cat <<EOF > /var/www/html/index.php
+<?php
+echo "It Works Fine";
+?>
+EOF
+
+echo "Include /etc/phpmyadmin/apache2.conf" >> /etc/apache2/apache2.conf
+
+
+
+
+# Enable Services 
+
+service apache2 start
+#service postfix restart
+#service dovecot start
+#service cron reload
+service mysql start
+service bind9 start
+
+
+
+
+
+
+
+
 
