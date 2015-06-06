@@ -43,7 +43,7 @@ echo "It Works Fine";
 ?>
 EOF
 
-echo "Include /etc/phpmyadmin/apache2.conf" >> /etc/apache2/apache2.conf
+echo "Include /etc/phpmyadmin/apache.conf" >> /etc/apache2/apache2.conf
 
 # Setting BIND
 
@@ -82,12 +82,12 @@ cp named.conf.options /etc/bind/named.conf.options
 
 # Enable Services 
 
-service apache2 start
+service apache2 restart
 #service postfix restart
 #service dovecot start
 #service cron reload
-service mysql start
-service bind9 start
+service mysql restart
+service bind9 restart
 
 
 
