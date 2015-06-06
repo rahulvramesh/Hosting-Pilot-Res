@@ -17,6 +17,25 @@ if dpkg -s php apache mysql bind postfix dovecot; then
     exit
 fi
 
+
+# Getting Details From User
+while true; do
+	#echo -e "Find your timezone from : http://php.net/manual/en/timezones.php e.g Europe/London"
+	#read -e -p "Enter your timezone: " -i "Europe/London" tz
+	dpkg-reconfigure tzdata
+	tz=`cat /etc/timezone`
+	read fqdn
+	echo -n "Enter Public IP: "
+	read ip
+    read -e -p "Ready to install, do you wish to continue (y/n)" y
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;
+    esac
+done
+
+
+
 # Installing The Stacks
 apt-get update
 
@@ -25,7 +44,7 @@ apt-get -y install sudo wget vim make zip unzip git debconf-utils at
 
 
 # Go For Non Inractives
-export DEBIAN_FRONTEND=noninteractive
+# export DEBIAN_FRONTEND=noninteractive
 apt-get install apache2 mysql-server php5-mysql php5 libapache2-mod-php5 php5-mcrypt php5-common php5-curl bind9 bind9utils bind9-doc phpMyAdmin zip webalizer build-essential bash-completion
 
 
@@ -41,6 +60,20 @@ echo "It Works Fine";
 EOF
 
 echo "Include /etc/phpmyadmin/apache2.conf" >> /etc/apache2/apache2.conf
+
+# Setting BIND
+
+
+#echo $fqdn
+wget https://raw.githubusercontent.com/rahulvramesh/Speech-Pilot-Res/master/db.linuxconfig.org
+cp db.linuxconfig.org db.$fqdn
+rm db.linuxconfig.org
+sed -i 's/linuxconfig.org/$fqdn/g' db.$fqdn
+sed -i 's/192.168.0.10/$ip/g' db.$fqdn
+
+mkdir -p /etc/bind/zones/master
+cp db.$fqdn /etc/bind/zones/master/db.$fqdn
+
 
 
 
