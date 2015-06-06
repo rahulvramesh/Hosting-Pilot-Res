@@ -1,0 +1,4 @@
+zone "linuxconfig.org" {
+       type master;
+       file "/etc/bind/zones/master/db.linuxconfig.org";
+};

@@ -3,6 +3,7 @@
 # OS VERSION: Ubuntu Server 
 # ARCH: x32_64
 # Script Version : Beta 0.0.1 
+# Author : Rahul V Ramesh
 
 # Check For Panels
 if [ -e /usr/local/cpanel ] || [ -e /usr/local/directadmin ] || [ -e /usr/local/solusvm/www ] || [ -e /usr/local/home/admispconfig ] || [ -e /usr/local/lxlabs/kloxo ] ; then
@@ -74,9 +75,15 @@ sed -i 's/192.168.0.10/$ip/g' db.$fqdn
 mkdir -p /etc/bind/zones/master
 cp db.$fqdn /etc/bind/zones/master/db.$fqdn
 
+# TO-DO Address To Name Mapping 
+cat <<EOF > /etc/bind/$fqdn.named.z
+zone "$fqdn" {
+       type master;
+       file "/etc/bind/zones/master/db.$fqdn";
+};
+EOF 
 
-
-
+echo "Include $fqdn.named.z" >> /etc/bind/named.conf.local
 
 # Enable Services 
 
