@@ -16,7 +16,7 @@ $TTL    3h
 linuxconfig.org.    IN      MX      10      mail.linuxconfig.org.
 linuxconfig.org.    IN      A       192.168.0.10
 ns1                     IN      A       192.168.0.10
-ns2                     IN      A       192.168.0.11
+ns2                     IN      A       192.168.0.10
 www                     IN      CNAME   linuxconfig.org.
 mail                    IN      A       192.168.0.10
 ftp                     IN      CNAME   linuxconfig.org.
