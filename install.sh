@@ -25,6 +25,7 @@ while true; do
 	#read -e -p "Enter your timezone: " -i "Europe/London" tz
 	dpkg-reconfigure tzdata
 	tz=`cat /etc/timezone`
+	echo -n "Enter Domain Name: "
 	read fqdn
 	echo -n "Enter Public IP: "
 	read ip
