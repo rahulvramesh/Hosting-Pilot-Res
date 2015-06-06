@@ -20,21 +20,13 @@ fi
 
 
 # Getting Details From User
-while true; do
-	#echo -e "Find your timezone from : http://php.net/manual/en/timezones.php e.g Europe/London"
-	#read -e -p "Enter your timezone: " -i "Europe/London" tz
-	dpkg-reconfigure tzdata
-	tz=`cat /etc/timezone`
+
 	echo -n "Enter Domain Name: "
 	read fqdn
 	echo -n "Enter Public IP: "
 	read ip
-    read -e -p "Ready to install, do you wish to continue (y/n)" y
-    case $yn in
-        [Yy]* ) break;;
-        [Nn]* ) exit;
-    esac
-done
+
+    
 
 
 
